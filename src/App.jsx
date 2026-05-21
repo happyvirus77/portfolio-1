@@ -43,7 +43,7 @@ const portfolioItems = [
       "A world-building prompt package for an AI-managed megacity with holographic signage, autonomous transit, and wide cinematic shots.",
     tools: "Runway, Kling",
     category: "World Building",
-    video: "https://www.w3schools.com/html/mov_bbb.mp4",
+    video: "videos/ai.mp4",
   },
   {
     title: "Neon Rain Street",
@@ -75,7 +75,7 @@ const showcaseVideos = [
   {
     title: "Neon Direction Reel",
     label: "Main Preview",
-    src: "https://www.w3schools.com/html/mov_bbb.mp4",
+    src: "videos/vd.mp4",
   },
   {
     title: "Synthetic City Motion",
@@ -137,6 +137,9 @@ const processSteps = [
 ];
 
 function App() {
+  const introVideoSrc = `${import.meta.env.BASE_URL}videos/intro.mp4`;
+  const getVideoSrc = (src) => (src.startsWith("http") ? src : `${import.meta.env.BASE_URL}${src}`);
+
   const scrollToSection = (target) => {
     document.getElementById(target)?.scrollIntoView({ behavior: "smooth" });
   };
@@ -194,6 +197,25 @@ function App() {
         </div>
       </section>
 
+      <section className="content-section intro-video-section">
+        <div className="intro-video-wrap">
+          <video
+            className="intro-video"
+            autoPlay
+            muted
+            defaultMuted
+            loop
+            playsInline
+            preload="auto"
+            controls={false}
+            aria-label="Intro video"
+          >
+            <source src={introVideoSrc} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </section>
+
       <section className="content-section about-section" id="about">
         <div className="section-heading">
           <p className="section-kicker">About</p>
@@ -202,12 +224,12 @@ function App() {
         <div className="about-layout">
           <div className="about-copy hologram-panel">
             <p>
-              I design AI video prompts as production-ready scene directions. Each prompt connects story intent,
-              subject behavior, camera movement, lighting, texture, and mood into a clear cinematic brief.
+              AI 영상 프롬프트를 실제 제작에 바로 활용할 수 있는 장면 연출안으로 설계합니다. 이야기의 의도,
+              피사체의 움직임, 카메라 워크, 조명, 질감, 분위기를 하나의 명확한 시네마틱 브리프로 연결합니다.
             </p>
             <p>
-              My work focuses on storytelling, scene planning, camera motion, visual mood design, and prompt structures
-              adapted for Runway, Pika, Kling, and Midjourney-based visual workflows.
+              스토리텔링, 장면 기획, 카메라 모션, 비주얼 무드 디자인을 중심으로 Runway, Pika, Kling,
+              Midjourney 기반 작업 흐름에 맞는 프롬프트 구조를 만듭니다.
             </p>
           </div>
           <aside className="profile-card hologram-panel">
@@ -257,7 +279,7 @@ function App() {
                 disablePictureInPicture
                 aria-label={`${video.title} video`}
               >
-                <source src={video.src} type="video/mp4" />
+                <source src={getVideoSrc(video.src)} type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
               <div className="showcase-video-caption">
@@ -283,7 +305,7 @@ function App() {
                   disablePictureInPicture
                   aria-label={`${item.title} preview video`}
                 >
-                  <source src={item.video} type="video/mp4" />
+                  <source src={getVideoSrc(item.video)} type="video/mp4" />
                   Your browser does not support the video tag.
                 </video>
                 <span>{item.category}</span>
